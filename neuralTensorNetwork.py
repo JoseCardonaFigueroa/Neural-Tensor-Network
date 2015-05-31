@@ -21,6 +21,8 @@ class NeuralTensorNetwork(object):
 
         """ Extract program parameters from the passed dictionary """
 
+        # Imprime todo el contenido del parametro de entrada
+        print program_parameters
         self.num_words           = program_parameters['num_words']
         self.embedding_size      = program_parameters['embedding_size']
         self.num_entities        = program_parameters['num_entities']
@@ -34,8 +36,9 @@ class NeuralTensorNetwork(object):
         """ Initialize word vectors randomly with each element in the range [-r, r] """
 
         r = 0.0001
-        word_vectors = np.random.random((self.embedding_size, self.num_words)) * 2 * r - r
 
+        word_vectors = np.random.random((self.embedding_size, self.num_words)) * 2 * r - r
+        print "Word vectors %s" %word_vectors
         """ 'r' value for initializing 'W' """
 
         r = 1 / math.sqrt(2 * self.embedding_size)
@@ -97,6 +100,7 @@ class NeuralTensorNetwork(object):
                 decode_info[i] = argument.shape
                 theta          = np.concatenate((theta, argument.flatten()))
 
+        print "Valor de theta %s y valor de decode_info %s" % (theta, decode_info )
         return theta, decode_info
 
     #######################################################################################
@@ -137,6 +141,7 @@ class NeuralTensorNetwork(object):
                 stack.append(theta[index : index + np.prod(decode_cell)].reshape(decode_cell))
                 index += np.prod(decode_cell)
 
+        #print "Valor de stack %s" % stack
         return stack
 
     #######################################################################################
